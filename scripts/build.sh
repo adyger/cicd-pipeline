@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo apt install npm -y
+apt install npm -y
