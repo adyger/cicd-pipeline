@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        REPO_URL = 'https://github.com/username/cicd-pipeline.git'
+        REPO_URL = 'https://github.com/adyger/cicd-pipeline.git'
         BUILD_SCRIPT_PATH = 'scripts/build.sh'
         TEST_SCRIPT_PATH = 'scripts/test.sh'
         DOCKERFILE_PATH = 'src/Dockerfile'
