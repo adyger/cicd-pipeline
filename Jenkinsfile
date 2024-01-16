@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     environment {
-        REPO_URL = 'https://github.com/adyger/cicd-pipeline.git'
+        REPO_URL = 'https://github.com/username/cicd-pipeline.git'
         BUILD_SCRIPT_PATH = 'scripts/build.sh'
         TEST_SCRIPT_PATH = 'scripts/test.sh'
         DOCKERFILE_PATH = 'src/Dockerfile'
         DOCKER_REGISTRY_URL = 'your-docker-registry-url'
-        DOCKER_IMAGE_NAME = 'your-docker-image-name'
+        DOCKER_IMAGE_NAME = 'adr_docker_image'
     }
 
     stages {
@@ -39,17 +39,9 @@ pipeline {
             steps {
                 script {
                     checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: REPO_URL]]])
-                    def dockerImage = docker.build("${DOCKER_REGISTRY_URL}/${DOCKER_IMAGE_NAME}:latest", "-f ${DOCKERFILE_PATH} .")
-                }
-            }
-        }
-
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    withDockerRegistry([credentialsId: 'your-dockerhub-credentials', url: DOCKER_REGISTRY_URL]) {
-                        dockerImage.push()
-                    }
+                    
+                    // Add the docker build command
+                    sh "docker build -t ${DOCKER_REGISTRY_URL}/${DOCKER_IMAGE_NAME}:latest -f ${DOCKERFILE_PATH} ."
                 }
             }
         }
