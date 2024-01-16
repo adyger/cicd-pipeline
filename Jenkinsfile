@@ -41,7 +41,7 @@ pipeline {
                     checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: REPO_URL]]])
                     
                     // Add the docker build command
-                    sh "docker build -t ${DOCKER_REGISTRY_URL}/${DOCKER_IMAGE_NAME}:latest -f ${DOCKERFILE_PATH} ."
+                    sh "docker build -t adyger/adr_docker_image ."
                 }
             }
         }
