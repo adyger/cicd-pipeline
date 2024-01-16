@@ -6,7 +6,7 @@ pipeline {
         BUILD_SCRIPT_PATH = 'scripts/build.sh'
         TEST_SCRIPT_PATH = 'scripts/test.sh'
         DOCKERFILE_PATH = 'src/Dockerfile'
-        DOCKER_REGISTRY_URL = 'your-docker-registry-url'
+        DOCKER_REGISTRY_URL = 'https://hub.docker.com/u/adyger'
         DOCKER_IMAGE_NAME = 'adr_docker_image'
     }
 
