@@ -6,8 +6,8 @@ pipeline {
         BUILD_SCRIPT_PATH = 'scripts/build.sh'
         TEST_SCRIPT_PATH = 'scripts/test.sh'
         DOCKERFILE_PATH = 'https://github.com/adyger/cicd-pipeline.git'
-        DOCKER_REGISTRY_URL = 'https://hub.docker.com/adyger'
-        DOCKER_IMAGE_NAME = 'adr_docker_image'
+        DOCKER_REGISTRY_URL = 'https://hub.docker.com'
+        DOCKER_IMAGE_NAME = 'adyger/adr_docker_image:v1'
     }
 
     stages {
