@@ -8,6 +8,8 @@ pipeline {
         DOCKERFILE_PATH = 'src/Dockerfile'
         DOCKER_REGISTRY_URL = 'https://hub.docker.com'
         DOCKER_IMAGE_NAME = 'adr_docker_image:v1'
+        DOCKER_REGISTRY_USER = 'adyger'
+        DOCKER_REGISTRY_PASSWORD = 'dckr_pat_1qvlNzIEIu7m2UkWokWKOtD7a6A'
     }
 
     stages {
@@ -47,11 +49,22 @@ pipeline {
                 }
             }
         }
-    }
-}
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    // Login to Docker registry
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_REGISTRY_USER', passwordVariable: 'DOCKER_REGISTRY_PASSWORD')]) {
+                        sh "docker login -u ${DOCKER_REGISTRY_USER} -p ${DOCKER_REGISTRY_PASSWORD} ${DOCKER_REGISTRY_URL}"
+                    }
+
+                    // Push the Docker image
+                    sh "docker push ${DOCKER_REGISTRY_URL}/${DOCKER_IMAGE_NAME}"
+                }
+            }
+        }
         
-        
-// ${DOCKER_REGISTRY_URL}        
+   
         
         
         
