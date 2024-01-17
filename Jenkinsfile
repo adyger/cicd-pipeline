@@ -42,7 +42,7 @@ pipeline {
                     
                     dir('src') {
                         // Assuming Docker is installed on the Jenkins agent
-                        sh "docker build -t adyger/${DOCKER_IMAGE_NAME} ."
+                        sh "docker build -t jenkins/${DOCKER_IMAGE_NAME} ."
                     }
                 }
             }
