@@ -52,14 +52,10 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                script {
-                    // Login to Docker registry
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_REGISTRY_USER', passwordVariable: 'DOCKER_REGISTRY_PASSWORD')]) {
-                        sh "docker login -u ${DOCKER_REGISTRY_USER} -p ${DOCKER_REGISTRY_PASSWORD} ${DOCKER_REGISTRY_URL}"
-                    }
-
-                    // Push the Docker image
-                    sh "docker push ${DOCKER_REGISTRY_URL}/${DOCKER_IMAGE_NAME}"
+                withCredentials(credentialsId: 'dockerhub', url: 'https://index.docker.io/v2/') {
+                        sh '''
+                            docker push adyger/${DOCKER_IMAGE_NAME}
+                        '''
                 }
             }
         }
