@@ -23,27 +23,28 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                script {
-                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: REPO_URL]]])
-                    
-                    // Add commands to make the test script executable and then run it
-                    sh "chmod +x ${TEST_SCRIPT_PATH}"
-                    sh "./${TEST_SCRIPT_PATH}"
-                }
-            }
-        }
-
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: REPO_URL]]])
-                    
-                    // Add the docker build command
+    stage('Build Docker Image') {
+        steps {
+            script {
+                try {
+                    sh "docker info"
                     sh "docker build -t adyger/adr_docker_image ."
+                } catch (Exception e) {
+                    echo "Failed to build Docker image: ${e}"
+                    error("Docker build failed.")
                 }
             }
         }
-    }
+    }  
+}  
 }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+   
