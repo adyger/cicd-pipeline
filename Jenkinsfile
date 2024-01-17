@@ -6,7 +6,7 @@ pipeline {
         BUILD_SCRIPT_PATH = 'scripts/build.sh'
         TEST_SCRIPT_PATH = 'scripts/test.sh'
         DOCKERFILE_PATH = 'https://github.com/adyger/cicd-pipeline.git'
-        DOCKER_REGISTRY_URL = 'https://hub.docker.com/repository/docker/adyger'
+        DOCKER_REGISTRY_URL = 'https://hub.docker.com/adyger'
         DOCKER_IMAGE_NAME = 'adr_docker_image'
     }
 
@@ -42,7 +42,7 @@ pipeline {
                     
                     dir('src') {
                         // Assuming Docker is installed on the Jenkins agent
-                        sh "docker build -t adyger/${DOCKER_IMAGE_NAME} ."
+                        sh "docker build -t ${DOCKER_REGISTRY_URL}/${DOCKER_IMAGE_NAME} ."
                     }
                 }
             }
