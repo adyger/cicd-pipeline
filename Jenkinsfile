@@ -34,21 +34,22 @@ pipeline {
             }
         }
     stage('Build Docker Image') {
-        steps {
-            script {
-                try {
-                    sh "docker info"
-                    sh "docker build -t adyger/adr_docker_image ."
-                } catch (Exception e) {
-                    echo "Failed to build Docker image: ${e}"
-                    error("Docker build failed.")
+            steps {
+                script {
+                    try {
+                        withEnv(['DOCKER_GRP=docker']) {
+                            sh "docker info"
+                            sh "docker build -t adyger/adr_docker_image ."
+                        }
+                    } catch (Exception e) {
+                        echo "Failed to build Docker image: ${e}"
+                        error("Docker build failed.")
+                    }
                 }
             }
         }
-    }  
-}  
+    }
 }
-        
         
         
         
